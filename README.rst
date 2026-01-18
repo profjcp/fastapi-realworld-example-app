@@ -1,3 +1,6 @@
+FastAPI RealWorld Example - QA Doctorado 2026
+==============================================
+
 .. image:: ./.github/assets/logo.png
 
 |
@@ -25,12 +28,65 @@
 
 ----------
 
-**NOTE**: This repository is not actively maintained because this example is quite complete and does its primary goal - passing Conduit testsuite.
+**PROYECTO**: Sistema Bajo Prueba (SUT) para Tarea Grupal 1 - QA Doctorado 2026  
+**ESTADO**: Sistema documentado y listo para QA
+
+**Documentación Importante**:
+
+- 📋 `SUT_SELECTION.md` - Justificación de selección del SUT y criterios
+- 📝 `AGREEMENTS.md` - Acuerdos y normas del equipo
+- 🚀 `setup/` - Scripts automatizados (run, stop, healthcheck)
+
+**NOTA**: Este repositorio es base de un proyecto original que ha sido adaptado como caso de estudio para QA.
 
 More modern and relevant examples can be found in other repositories with ``fastapi`` tag on GitHub.
 
 Quickstart
 ----------
+
+Sistema Bajo Prueba - Ejecución Rápida
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Requisitos Previos**:
+
+- Docker y Docker Compose instalados
+- Git instalado
+- Acceso a terminal/línea de comandos
+
+**Ejecución Automática (Recomendado)**:
+
+Para iniciar, detener o verificar la salud del SUT, usa los scripts automatizados: ::
+
+    # Iniciar el SUT (FastAPI + PostgreSQL)
+    ./setup/run_sut.sh
+
+    # Verificar que el sistema está funcionando
+    ./setup/healthcheck_sut.sh
+
+    # Detener el SUT
+    ./setup/stop_sut.sh
+
+**Acceso a la API**:
+
+Una vez que el sistema está en ejecución:
+
+- **Swagger UI**: http://localhost:8000/docs
+- **ReDoc**: http://localhost:8000/redoc
+- **API Base**: http://localhost:8000/api
+
+**Ejecución Manual (Docker Compose)**:
+
+Si prefieres ejecutar directamente sin scripts: ::
+
+    # Copiar archivo de configuración
+    cp .env.example .env
+    
+    # Iniciar servicios
+    docker-compose up -d db
+    docker-compose up -d app
+    
+    # Ejecutar migraciones
+    docker-compose exec app alembic upgrade head
 
 First, run ``PostgreSQL``, set environment variables and create database. For example using ``docker``: ::
 
@@ -155,3 +211,47 @@ Application parts are:
     ├── resources        - strings that are used in web responses.
     ├── services         - logic that is not just crud related.
     └── main.py          - FastAPI application creation and configuration.
+QA - Documentación del Proyecto
+-------------------------------
+
+Este repositorio incluye documentación requerida para la **Tarea Grupal 1 - QA Doctorado 2026**:
+
+**📋 SUT_SELECTION.md**
+    Documento que justifica la selección de este sistema como SUT (System Under Testing):
+    
+    - Sistema bajo prueba: FastAPI RealWorld Example Application
+    - Cumplimiento de criterios técnicos (ejecución local, interfaz observable, etc.)
+    - Justificación de selección
+    - Riesgos y limitaciones identificadas
+
+**📝 AGREEMENTS.md**
+    Acuerdos y normas establecidas por el equipo de QA:
+    
+    - Roles y responsabilidades del equipo
+    - Estructura de branches y control de versiones
+    - Estándares de código y documentación
+    - Procesos de validación y revisión
+
+**🚀 setup/ - Scripts Automatizados**
+    Carpeta con scripts de automatización para gestionar el SUT:
+    
+    - ``run_sut.sh`` - Inicia el sistema completo (FastAPI + PostgreSQL)
+    - ``stop_sut.sh`` - Detiene y limpia el sistema
+    - ``healthcheck_sut.sh`` - Verifica la salud y disponibilidad del SUT
+    - ``README.md`` - Documentación detallada de cada script
+
+**Requisitos para Publicación en GitHub**:
+
+✅ SUT documentado y justificado  
+✅ Acuerdos de equipo establecidos  
+✅ README.md con información básica  
+✅ Scripts de ejecución funcionales  
+✅ Estructura lista para CI/CD  
+
+**Próximos Pasos**:
+
+1. Clonar o hacer fork de este repositorio
+2. Configurar permisos de equipo en GitHub
+3. Activar protección de rama principal
+4. Configurar CI/CD si es necesario
+5. Documentar hallazgos de testing
