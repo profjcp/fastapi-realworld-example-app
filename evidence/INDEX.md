@@ -5,7 +5,7 @@
 
 ## Semana 3
 - RUNLOG: evidence/week3/RUNLOG.md
-- Evidencia Top 3 (pendiente de generar):
+- Evidencia Top 3:
   - evidence/week3/api_down.log
   - evidence/week3/robustness.log
   - evidence/week3/latency.log
