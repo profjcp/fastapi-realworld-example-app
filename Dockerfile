@@ -14,7 +14,7 @@ COPY poetry.lock pyproject.toml ./
 RUN pip install --upgrade pip && \
     pip install poetry>=1.7 && \
     poetry config virtualenvs.in-project true && \
-    poetry install --with=dev
+    poetry install --with=dev --no-root
 
 COPY . ./
 
