@@ -1,4 +1,4 @@
-.PHONY: help run stop health smoke q1 q2 q3 q4 test-all evidence clean lint format
+.PHONY: help run stop health smoke q1 q2 q3 q4 test-all evidence clean lint format quality-gate
 
 # Variables
 SHELL := /bin/bash
@@ -38,6 +38,9 @@ help:
 	@echo "$(YELLOW)PRUEBAS SISTEMÁTICAS (Semana 4):$(NC)"
 	@echo "  make systematic-test  - Ejecutar 12 casos EP+BVA con oráculos"
 	@echo "  make week4-report     - Generar reporte metodológico Week 4"
+	@echo ""
+	@echo "$(YELLOW)QUALITY GATE (Semana 5):$(NC)"
+	@echo "  make quality-gate     - Ejecutar gate con evidencia reproducible"
 	@echo ""
 	@echo "$(YELLOW)UTILIDADES:$(NC)"
 	@echo "  make evidence         - Ver evidencia de pruebas"
@@ -128,6 +131,13 @@ evidence:
 		echo "  Carpeta no existe aún"; \
 	fi
 	@echo ""
+	@echo "$(YELLOW)Quality Gate (Semana 5):$(NC)"
+	@if [ -d evidence/week5 ]; then \
+		ls -lh evidence/week5/ 2>/dev/null | tail -n +2 || echo "  No hay evidencia week5"; \
+	else \
+		echo "  Carpeta no existe aún"; \
+	fi
+	@echo ""
 
 # ============================================================================
 # UTILIDADES
@@ -196,6 +206,14 @@ full-test: run
 # Script de desarrollo
 dev: health smoke
 	@echo "$(GREEN)Dev mode ready$(NC)"
+
+# ============================================================================
+# QUALITY GATE (SEMANA 5)
+# ============================================================================
+
+quality-gate:
+	@echo "$(GREEN)Ejecutando Quality Gate (Semana 5)...$(NC)"
+	@bash ci/run_quality_gate.sh
 
 # Ejecutar antes de hacer commit
 pre-commit: clean test-all

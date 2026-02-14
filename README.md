@@ -47,6 +47,12 @@ Es un **System Under Test (SUT)** basado en FastAPI RealWorld - una aplicación 
 - Evidencia y RUNLOGs: evidence/
 - Escenarios de calidad: quality/
 
+### Semana 5 - Quality Gate
+
+- Definicion del gate: ci/quality_gates.md
+- Ejecutor local/CI: bash ci/run_quality_gate.sh
+- Evidencia generada: evidence/week5/
+
 ### Ejecutar pruebas
 
 **Script de pruebas con cobertura:**
