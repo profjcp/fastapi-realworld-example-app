@@ -1,0 +1,10 @@
+{
+  "test_case": "TC-04",
+  "slug": "my article slug",
+  "http_code": "000",
+  "time_ms": 1,
+  "expected_status": "422|404",
+  "oracles": "OR-01,OR-05",
+  "timestamp": "2026-02-05T02:36:23Z",
+  "body": "\n"
+}

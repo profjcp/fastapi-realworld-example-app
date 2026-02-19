@@ -1,0 +1,10 @@
+{
+  "test_case": "TC-03",
+  "slug": "",
+  "http_code": "307",
+  "time_ms": 0,
+  "expected_status": "422|404",
+  "oracles": "OR-01,OR-05",
+  "timestamp": "2026-02-05T02:36:22Z",
+  "body": "\n"
+}

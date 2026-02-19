@@ -39,6 +39,41 @@ Es un **System Under Test (SUT)** basado en FastAPI RealWorld - una aplicación 
 └── README.md           - Este archivo
 ```
 
+## 🧪 Testing & QA
+
+### Estructura de QA
+
+- Matriz de riesgos y estrategia: risk/
+- Evidencia y RUNLOGs: evidence/
+- Escenarios de calidad: quality/
+
+### Semana 5 - Quality Gate
+
+- Definicion del gate: ci/quality_gates.md
+- Ejecutor local/CI: bash ci/run_quality_gate.sh
+- Evidencia generada: evidence/week5/
+
+### Ejecutar pruebas
+
+**Script de pruebas con cobertura:**
+
+```bash
+./scripts/test
+```
+
+**Pytest directo:**
+
+```bash
+poetry run pytest -v --cov=app --cov=tests --cov-report=term-missing
+```
+
+### Ver evidencia
+
+```bash
+ls -la evidence/week3/
+cat evidence/week3/RUNLOG.md
+```
+
 ## ⚡ Primeros Pasos
 
 ### 1. Revisar Acuerdos de Equipo

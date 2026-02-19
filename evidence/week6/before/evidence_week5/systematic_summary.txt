@@ -1,0 +1,8 @@
+Systematic Cases Summary (Week 5 Gate)
+======================================
+Date: 2026-02-18 22:04:25
+Total: 1
+PASS:  1
+FAIL:  0
+Expected Minimum: 0
+Evidence: /Users/oceanjungle/proDoc/fastapi-realworld-example-app/evidence/week5/systematic_results.csv
