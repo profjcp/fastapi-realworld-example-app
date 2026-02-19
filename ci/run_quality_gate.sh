@@ -3,7 +3,11 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+if [ -n "${GATE_PROJECT_ROOT:-}" ]; then
+    PROJECT_ROOT="$GATE_PROJECT_ROOT"
+else
+    PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+fi
 
 EVIDENCE_DIR="$PROJECT_ROOT/evidence/week5"
 RUNLOG="$EVIDENCE_DIR/RUNLOG.md"
@@ -15,6 +19,9 @@ ARTICLES_LIST_BODY="$EVIDENCE_DIR/articles_list.json"
 ARTICLES_LIST_HTTP="$EVIDENCE_DIR/articles_list_http_code.txt"
 SYSTEMATIC_CSV="$EVIDENCE_DIR/systematic_results.csv"
 SYSTEMATIC_SUMMARY="$EVIDENCE_DIR/systematic_summary.txt"
+# ANTI_GAMING_START
+MIN_SYSTEMATIC_CASES=3
+# ANTI_GAMING_END
 
 STARTED_SUT=false
 TOTAL_CHECKS=0
@@ -148,21 +155,28 @@ run_case "TC-04" "invalid%20slug" "404|422"
 LONG_SLUG=$(printf 'a%.0s' {1..255})
 run_case "TC-06" "$LONG_SLUG" "404|422"
 
+total_cases=$((SYSTEMATIC_PASS + SYSTEMATIC_FAIL))
+
 cat > "$SYSTEMATIC_SUMMARY" <<EOF
 Systematic Cases Summary (Week 5 Gate)
 ======================================
 Date: $(date "+%Y-%m-%d %H:%M:%S")
-Total: $((SYSTEMATIC_PASS + SYSTEMATIC_FAIL))
+Total: $total_cases
 PASS:  $SYSTEMATIC_PASS
 FAIL:  $SYSTEMATIC_FAIL
+Expected Minimum: ${MIN_SYSTEMATIC_CASES:-0}
 Evidence: $SYSTEMATIC_CSV
 EOF
 
-if [ "$SYSTEMATIC_FAIL" -eq 0 ]; then
+# ANTI_GAMING_ENFORCE_START
+if [ "$total_cases" -lt "$MIN_SYSTEMATIC_CASES" ]; then
+    record_check "Check 3 - Casos sistematicos" "FAIL" "casos insuficientes $total_cases/$MIN_SYSTEMATIC_CASES (posible gaming)"
+elif [ "$SYSTEMATIC_FAIL" -eq 0 ]; then
     record_check "Check 3 - Casos sistematicos" "PASS" "$SYSTEMATIC_PASS/$((SYSTEMATIC_PASS + SYSTEMATIC_FAIL)) casos"
 else
     record_check "Check 3 - Casos sistematicos" "FAIL" "$SYSTEMATIC_FAIL fallas"
 fi
+# ANTI_GAMING_ENFORCE_END
 
 cat > "$SUMMARY" <<EOF
 Quality Gate Summary
